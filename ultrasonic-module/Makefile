@@ -15,7 +15,7 @@
 
 # parameters (change this stuff accordingly)
 # project name
-PRJ = main
+PRJ = HC-SR04_lib
 # avr mcu
 MCU = atmega328p
 # mcu clock frequency
