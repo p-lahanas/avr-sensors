@@ -6,7 +6,7 @@
 
 int main() {
     
-    USART_Init(MYUBRR);
+    USART_Init(UBRR_9600_BAUD);
 
     char hello[14] = "Hello World!\n\r";
 
@@ -15,7 +15,7 @@ int main() {
         int i = 0;
 
         while (i < 14) {
-            USART_Transmit(hello[i]);
+            USART_TransmitPolling(hello[i]);
             i++;
         }
 

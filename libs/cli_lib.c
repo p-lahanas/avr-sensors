@@ -16,8 +16,8 @@ void USART_Init(unsigned int ubrr) {
 
 }
 
-void USART_Transmit(unsigned char data) {
-
+void USART_TransmitPolling(unsigned char data) {
+    
     while (!(UCSR0A & (1 << UDRE0)));
     UDR0 = data;
 }

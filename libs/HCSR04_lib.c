@@ -2,7 +2,7 @@
 
 #include "avr/io.h"
 
-void hc_sr04_init(void) {
+void HCSR04_Init(void) {
     
     // Set PD7 as output (trig))
     DDRD |= (1 << DDD7);
