@@ -21,3 +21,17 @@ void USART_TransmitPolling(unsigned char data) {
     while (!(UCSR0A & (1 << UDRE0)));
     UDR0 = data;
 }
+
+
+void USART_TransmitStrPolling(unsigned char *str, unsigned int strLen) {
+
+    for (unsigned int i = 0; i < strLen; i++) {
+        
+        USART_TransmitPolling(str[i]);
+    }
+
+    /* If string is not null terminated, send the null terminator */
+    if (str[strLen - 1] != '\0') {
+        USART_TransmitPolling('\0');
+    }
+}

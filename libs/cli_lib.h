@@ -15,6 +15,7 @@ void USART_Init(unsigned int ubrr);
 void USART_TransmitPolling(unsigned char data);
 
 // String handling wrappers
-void USART_TransmitString(char *string);
+void USART_TransmitStrPolling(unsigned char *str, unsigned int strLen);
+
 
 #endif

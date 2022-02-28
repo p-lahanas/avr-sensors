@@ -8,20 +8,14 @@ int main() {
     
     USART_Init(UBRR_9600_BAUD);
 
-    char hello[14] = "Hello World!\n\r";
+    unsigned char hello[14] = "Hello World!\n\r";
 
     while (1) {
 
-        int i = 0;
-
-        while (i < 14) {
-            USART_TransmitPolling(hello[i]);
-            i++;
-        }
-
+        USART_TransmitStrPolling(hello, 14);
         _delay_ms(100);
 
-   }
+    }
     
     return 0;
 }
