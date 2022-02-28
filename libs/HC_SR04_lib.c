@@ -15,10 +15,3 @@ void hc_sr04_init(void) {
 
     // Set Trig pin as output PD7
 }
-
-
-void main() {
-
-    hc_sr04_init();
-}
-
