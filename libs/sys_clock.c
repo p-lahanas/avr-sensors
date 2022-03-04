@@ -1,6 +1,6 @@
 #include "sys_clock.h"
 
-#include "avr/interrupts.h"
+#include "avr/interrupt.h"
 #include "avr/io.h"
 
 #define FREQ 16000000UL
@@ -65,6 +65,20 @@ unsigned long sys_time_elapsed(void) {
     cli();
     m = timer0_millis;
     SREG = oldSREG;
+    
+    return m;
+}
 
+unsigned long sys_time_err(void) {
+
+    unsigned long m;
+    uint8_t oldSREG = SREG;
+
+    // disable interrupts while we read timer0_millis or we might get an
+    // inconsistent value (e.g. in the middle of a write to timer0_millis)
+    cli();
+    m = timer0_err;
+    SREG = oldSREG;
+    
     return m;
 }

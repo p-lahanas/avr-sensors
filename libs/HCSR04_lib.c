@@ -1,40 +1,52 @@
 #include "HCSR04_lib.h"
+#include "sys_clock.h"
+#include "cli_lib.h"
 
-#include "avr/io.h"
-#include "util/delay.h"
+#include <avr/io.h>
+#include <util/delay.h>
+
+#define SPEED_OF_SOUND 34 // cm/ms
 
 void HCSR04_Init(void) {
     
     // Set PD7 as output (trig))
     DDRD |= (1 << DDD7);
-    // Set PD6 as input (echo))
+    // Set PD6 as input (echo) and turn off pull-up)
     DDRD &= ~(1 << DDD6);
+    PORTD &= ~(1 << ECHO);
 
-    // Set echo pin as input PD6
-
-    // Set Trig pin as output PD7
 }
 
 /* TODO: Implement this with interrupts so no busy waiting */
-int HCSR04_GetDist(void) {
+unsigned long HCSR04_GetDist(void) {
 
+    unsigned long startTime, endTime, elapsed, distance;
+    
     // Send 10us pulse to TRIG 
     PORTD |= (1 << TRIG);
-    _delay_us(10)    
+    _delay_us(10);
     PORTD &= ~(1 << TRIG);
     
+    //USART_TransmitPolling('b');
     // Wait for echo rising edge
-    while (!(PORTD & (1 << ECHO)));
+    while (!(PIND & (1 << ECHO)));
 
+        //USART_TransmitPolling('a');
+        //USART_TransmitPolling('\n');
+    //}
+    
     // Start timer
+    startTime = sys_time_elapsed();
 
     // Wait for echo falling edge
-    while ((PORTD & (1 << ECHO)));
+    while ((PIND & (1 << ECHO)));
+    endTime = sys_time_elapsed(); 
     
     // End time
-    
+    elapsed = endTime - startTime;
 
-    // Calculate distance based on time
+  
+    distance = (SPEED_OF_SOUND * elapsed) / 2;
 
-
+    return distance;
 }

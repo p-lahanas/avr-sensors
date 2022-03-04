@@ -16,6 +16,7 @@ void USART_TransmitPolling(unsigned char data);
 
 // String handling wrappers
 void USART_TransmitStrPolling(unsigned char *str, unsigned int strLen);
+unsigned int itos(unsigned int number, unsigned char *buffer, unsigned int bufflen);
 
 
 #endif

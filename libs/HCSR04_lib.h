@@ -8,7 +8,7 @@
 
 
 void HCSR04_Init(void);
-int HCSR04_GetDist(void);
+unsigned long HCSR04_GetDist(void);
 
 
 #endif

@@ -35,3 +35,31 @@ void USART_TransmitStrPolling(unsigned char *str, unsigned int strLen) {
         USART_TransmitPolling('\0');
     }
 }
+
+/* Converts number to a string and stores it in the buffer */
+unsigned int itos(unsigned int number, unsigned char *buffer, unsigned int bufflen) {
+
+    char temp[bufflen];
+    unsigned int strlen = 0;
+
+    for (unsigned int i = 0; i < bufflen; i++) {
+
+        // increment the string counter
+        temp[i] = '0' + (number % 10);
+        number = number / 10;
+        strlen++;
+        
+        /* This is the last iteration */        
+        if (number == 0) {
+            break;
+        }
+
+    }
+
+    /* Reverse the temp string */
+    for (int i = (strlen - 1); i >= 0; i--) {
+        buffer[strlen - i - 1] = temp[i];
+    }
+
+    return strlen;
+}
