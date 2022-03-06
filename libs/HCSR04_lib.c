@@ -5,7 +5,7 @@
 #include <avr/io.h>
 #include <util/delay.h>
 
-#define SPEED_OF_SOUND 34 // cm/ms
+#define SPEED_OF_SOUND 34UL // cm/ms
 
 void HCSR04_Init(void) {
     
@@ -27,14 +27,9 @@ unsigned long HCSR04_GetDist(void) {
     _delay_us(10);
     PORTD &= ~(1 << TRIG);
     
-    //USART_TransmitPolling('b');
     // Wait for echo rising edge
     while (!(PIND & (1 << ECHO)));
 
-        //USART_TransmitPolling('a');
-        //USART_TransmitPolling('\n');
-    //}
-    
     // Start timer
     startTime = sys_time_elapsed();
 
